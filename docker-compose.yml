@@ -2,17 +2,17 @@ version: '2'
 
 services:
 
-#  mongodb:
-#    image: mongo
-#    container_name: mongodb
-#    hostname: mongodb
-#    ports:
-#    - "27017:27017"
-#    restart: always
-#    volumes:
-#    - ./docker_data/mongodb/bitnami:/bitnami
-#    networks:
-#    - mssdnet
+  mongodb:
+    image: mongo
+    container_name: mongodb
+    hostname: mongodb
+    ports:
+    - "27017:27017"
+    restart: always
+    volumes:
+    - ./docker_data/mongodb/bitnami:/bitnami
+    networks:
+    - mssdnet
 
   db:
     image: mysql:5.7
@@ -75,15 +75,15 @@ services:
     networks:
       - mssdnet
 
-  activemq:
-    image: webcenter/activemq:latest
-    container_name : activeMq
-    ports:
-      - 8161:8161
-      - 61616:61616
-      - 61613:61613
-    networks:
-      - mssdnet
+#  activemq:
+#    image: webcenter/activemq:latest
+#    container_name : activeMq
+#    ports:
+#      - 8161:8161
+#      - 61616:61616
+#      - 61613:61613
+#    networks:
+#      - mssdnet
 
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:6.6.1

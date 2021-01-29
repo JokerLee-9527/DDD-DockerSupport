@@ -2,9 +2,9 @@
 
 ---
 
+## 该项目主要用于 [GitHub - JokerLee-9527/DDD](https://github.com/JokerLee-9527/DDD)
 
-
-# 使用方法
+## 使用方法
 
 1. docker-compose.yml 的IP替换为自己的主机IP(网卡的ip)
    
@@ -37,14 +37,14 @@
 
 ---
 
-# 脚本说明
+## 脚本说明
 
 1. docker_pull.sh: docker容器比较多, start_docker_XXX.sh脚本会比较慢,想用该脚本下载所以docker 
 2. stop_and_start_docker.sh  先停止,删除上次运行docker的文件,重新启动docker
 3. start_docker.sh  启动docker
 4. stop_docker.sh  停止docker
 
-# 配置参数
+## 配置参数
 
 1. 数据库:
    
@@ -80,20 +80,10 @@
    
    [http://127.0.0.1:9411/zipkin/](http://127.0.0.1:9411/zipkin/)
 
-6. activemq  (todo 废弃)
-   
-   ip:127.0.0.1
-   
-   broker port:61616
-   
-   控制台地址 port:8161 [控制台](http://127.0.0.1:8161)   用户名/密码 admin/admin
-   
-   61613:todo
-
-7. elasticsearch
+6. elasticsearch
    
     http://localhost:9200
 
-8. kibana 
+7. kibana 
    
     http://127.0.0.1:5601
