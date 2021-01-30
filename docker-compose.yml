@@ -45,35 +45,74 @@ services:
     networks:
       - mssdnet
 
-  kafka-zookeeper:
-    image: openzipkin/zipkin-kafka
-    container_name : kafka
-    hostname: kafka
-    environment:
-      # corresponds to your docker machine and your producer's broker list
-      - KAFKA_ADVERTISED_HOST_NAME=10.0.75.1
+  zoo1:
+    image: zookeeper:3.4.9
+    hostname: zoo1
     ports:
-      - 8181:2181
-      - 9092:9092
-    networks:
-      - mssdnet
+      - "2181:2181"
+    environment:
+      ZOO_MY_ID: 1
+      ZOO_PORT: 2181
+      ZOO_SERVERS: server.1=zoo1:2888:3888 server.2=zoo2:2888:3888 server.3=zoo3:2888:3888
+    volumes:
+      - ./docker_data/zookeeper/zoo1/data:/data
+      - ./docker_data/zookeeper/zoo1/datalog:/datalog
 
-  zipkin:
-    image: openzipkin/zipkin
-    container_name : zipkin
-    # Environment settings are defined here https://github.com/openzipkin/zipkin/tree/1.19.0/zipkin-server#environment-variables
-    hostname: zipkin
-    environment:
-      - KAFKA_ZOOKEEPER=kafka-zookeeper
-    depends_on:
-      - kafka-zookeeper
+  zoo2:
+    image: zookeeper:3.4.9
+    hostname: zoo2
     ports:
-      # Port used for the Zipkin UI and HTTP Api
-      - 9411:9411
-      # Uncomment if you set SCRIBE_ENABLED=true
-      # - 9410:9410
-    networks:
-      - mssdnet
+      - "2182:2182"
+    environment:
+      ZOO_MY_ID: 2
+      ZOO_PORT: 2182
+      ZOO_SERVERS: server.1=zoo1:2888:3888 server.2=zoo2:2888:3888 server.3=zoo3:2888:3888
+    volumes:
+      - ./docker_data/zookeeper/zoo2/data:/data
+      - ./docker_data/zookeeper/zoo2/datalog:/datalog
+
+  zoo3:
+    image: zookeeper:3.4.9
+    hostname: zoo3
+    ports:
+      - "2183:2183"
+    environment:
+      ZOO_MY_ID: 3
+      ZOO_PORT: 2183
+      ZOO_SERVERS: server.1=zoo1:2888:3888 server.2=zoo2:2888:3888 server.3=zoo3:2888:3888
+    volumes:
+      - ./docker_data/zookeeper/zoo3/data:/data
+      - ./docker_data/zookeeper/zoo3/datalog:/datalog
+
+#  kafka-zookeeper:
+#    image: openzipkin/zipkin-kafka
+#    container_name : kafka
+#    hostname: kafka
+#    environment:
+#      # corresponds to your docker machine and your producer's broker list
+#      - KAFKA_ADVERTISED_HOST_NAME=10.0.75.1
+#    ports:
+#      - 8181:2181
+#      - 9092:9092
+#    networks:
+#      - mssdnet
+
+#  zipkin:
+#    image: openzipkin/zipkin
+#    container_name : zipkin
+#    # Environment settings are defined here https://github.com/openzipkin/zipkin/tree/1.19.0/zipkin-server#environment-variables
+#    hostname: zipkin
+#    environment:
+#      - KAFKA_ZOOKEEPER=kafka-zookeeper
+#    depends_on:
+#      - kafka-zookeeper
+#    ports:
+#      # Port used for the Zipkin UI and HTTP Api
+#      - 9411:9411
+#      # Uncomment if you set SCRIBE_ENABLED=true
+#      # - 9410:9410
+#    networks:
+#      - mssdnet
 
 #  activemq:
 #    image: webcenter/activemq:latest
